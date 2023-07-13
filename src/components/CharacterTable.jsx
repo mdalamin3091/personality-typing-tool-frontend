@@ -170,7 +170,7 @@ const CharacterTable = ({
 							);
 						})
 					) : (
-						<p>you have no characters</p>
+						<p className="p-4 py-3">you have no characters</p>
 					)}
 				</tbody>
 			</table>

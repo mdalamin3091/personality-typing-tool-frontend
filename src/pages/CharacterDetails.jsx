@@ -57,8 +57,8 @@ const CharacterDetails = () => {
 				<figure className="relative">
 					<img
 						src="https://placehold.co/800x450?text=Placeholder"
-						className="w-full h-full object-cover"
-						alt=""
+						className="w-full h-[500px] md:h-[700px] object-cover"
+						alt="cover"
 					/>
 					<Link
 						to="/"

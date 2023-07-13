@@ -17,10 +17,11 @@ const CastCharacterTable = ({
 	const { name, enneagramtype } = character || {};
 	const dispatch = useDispatch();
 	const [isIcon, setIsIcon] = useState(false);
+	const [isLoad, setIsLoad] = useState(true);
 	const [isRelationData, setIsRelationData] = useState({});
 	const [isSkip, setSkip] = useState(true);
 
-	const { data, isSuccess, isError } = useGetRelationshipQuery(
+	const { data, isSuccess } = useGetRelationshipQuery(
 		{
 			type1: isRelationData?.data?.enneagram_number,
 			type2: enneagramData?.data?.enneagram_number,
@@ -29,30 +30,35 @@ const CastCharacterTable = ({
 	);
 
 	const handleEnegramType = () => {
-		dispatch(getEnneagramType.initiate(enneagramtype))
-			.unwrap()
-			.then((res) => {
-				setEnneagramData(res);
-				setIsIcon(true);
-				if (res.data) {
-					dispatch(getEnneagramType.initiate(enneagramtype))
-						.unwrap()
-						.then((res) => {
-							setIsRelationData(res);
-						});
-				}
-			});
+		if (isLoad) {
+			dispatch(getEnneagramType.initiate(enneagramtype))
+				.unwrap()
+				.then((res) => {
+					setEnneagramData(res);
+					setIsIcon(true);
+					if (res.data) {
+						dispatch(getEnneagramType.initiate(enneagramtype))
+							.unwrap()
+							.then((res) => {
+								setIsRelationData(res);
+							});
+					}
+				});
+			setIsLoad(!isLoad);
+		} else {
+			setIsLoad(!isLoad);
+			setIsIcon(false);
+			setEnneagramData(null);
+		}
+
 	};
 
 	useEffect(() => {
 		if (isSuccess && data) {
 			toast.success(data.message);
 			setRelationData(data?.data);
-		} 
-		// else if (isError) {
-		// 	toast.error(error?.data?.message);
-		// }
-	}, [isSuccess, isError]);
+		}
+	}, [isSuccess]);
 
 	useEffect(() => {
 		if (

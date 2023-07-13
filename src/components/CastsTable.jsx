@@ -110,7 +110,7 @@ const CastsTable = ({ title, data, classes, link }) => {
 							);
 						})
 					) : (
-						<p>you have not cast</p>
+						<p className="p-4 py-3">you have not cast</p>
 					)}
 				</tbody>
 			</table>

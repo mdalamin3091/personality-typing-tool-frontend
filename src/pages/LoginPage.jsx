@@ -59,7 +59,7 @@ const LoginPage = () => {
                         />
 
                         <p className="text-right py-2">
-                            <Link to="/signup">signup</Link>
+                            <Link to="/signup">Signup</Link>
                         </p>
                     </div>
                 </div>

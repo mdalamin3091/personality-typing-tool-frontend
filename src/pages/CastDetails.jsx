@@ -11,7 +11,6 @@ import {
 	AiOutlineDelete,
 	AiTwotoneEdit,
 } from "react-icons/ai";
-import { Button } from "@material-tailwind/react";
 import CastCharacterTable from "../components/CastCharacterTable";
 import Loader from "../components/Loader";
 import { confirmAlert } from "react-confirm-alert";
@@ -81,7 +80,7 @@ const CastDetails = () => {
 				<figure className="relative">
 					<img
 						src="https://placehold.co/800x450?text=Placeholder"
-						className="w-full h-full object-cover"
+						className="w-full h-[500px] md:h-[700px] object-cover"
 						alt=""
 					/>
 					<Link
@@ -115,13 +114,8 @@ const CastDetails = () => {
 					</div>
 
 					<div className="text-gray-700 mt-5">
-						{/* <img
-              src="https://placehold.co/400x250?text=Placeholder"
-              className="text-center mx-auto h-auto object-cover p-5"
-              alt=""
-            /> */}
 						<div className="flex flex-col gap-y-4 my-8 mx-auto w-[100%] md:w-[50%]">
-							<Card className="overflow-scroll h-full w-full">
+							<Card className="h-full w-full">
 								<div className="w-full min-w-max text-left">
 									<div>
 										<div className="flex justify-between items-center">
