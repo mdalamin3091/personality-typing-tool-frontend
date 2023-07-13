@@ -40,7 +40,7 @@ const CharacterTable = ({
 			toast.error(result?.error.message);
 		}
 	}, [result?.isSuccess, result?.isError]);
-	
+
 	const confirmDelete = (id) => {
 		confirmAlert({
 			title: "Confirm to Delete",
@@ -74,7 +74,7 @@ const CharacterTable = ({
 			enneagramtype,
 			enneagramwing,
 			enneagramvariant,
-		} = data.find((item) => item.id === id);
+		} = characterData.find((item) => item.id === id);
 		const copyCharacter = {
 			name: name + " - Copy",
 			age,

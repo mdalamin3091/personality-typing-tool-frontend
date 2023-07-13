@@ -120,7 +120,7 @@ const CastDetails = () => {
               className="text-center mx-auto h-auto object-cover p-5"
               alt=""
             /> */}
-						<div className="flex flex-col gap-y-4 my-8 mx-auto w-[50%]">
+						<div className="flex flex-col gap-y-4 my-8 mx-auto w-[100%] md:w-[50%]">
 							<Card className="overflow-scroll h-full w-full">
 								<table className="w-full min-w-max table-auto text-left">
 									<thead>
