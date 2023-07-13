@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.react-confirm-alert-button-group {
+    flex-direction: column !important;
+
+    gap: .75rem !important;
+}
