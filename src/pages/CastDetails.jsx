@@ -74,7 +74,7 @@ const CastDetails = () => {
 	} else if (!isLoading && isError) {
 		content = "something was wrong";
 	} else if (!isLoading && !isError && isSuccess) {
-		const TABLE_HEAD = ["character Name", "enneagram Type", "Relationship"];
+		const TABLE_HEAD = ["character Name", "enneagram Type"];
 		const { name, characters } = data?.data;
 		content = (
 			<div className="">
@@ -122,26 +122,26 @@ const CastDetails = () => {
             /> */}
 						<div className="flex flex-col gap-y-4 my-8 mx-auto w-[100%] md:w-[50%]">
 							<Card className="overflow-scroll h-full w-full">
-								<table className="w-full min-w-max table-auto text-left">
-									<thead>
-										<tr>
+								<div className="w-full min-w-max text-left">
+									<div>
+										<div className="flex justify-between items-center">
 											{TABLE_HEAD.map((head) => (
-												<th
+												<div
 													key={head}
-													className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+													className="p-4 font-bold text-3xl capitalize"
 												>
 													<Typography
 														variant="small"
 														color="blue-gray"
-														className="font-normal leading-none opacity-70"
+														className="leading-none font-bold"
 													>
 														{head}
 													</Typography>
-												</th>
+												</div>
 											))}
-										</tr>
-									</thead>
-									<tbody>
+										</div>
+									</div>
+									<div>
 										{characters &&
 											characters?.map((char) => (
 												<CastCharacterTable
@@ -151,8 +151,8 @@ const CastDetails = () => {
 													setEnneagramData={setEnneagramData}
 												/>
 											))}
-									</tbody>
-								</table>
+									</div>
+								</div>
 							</Card>
 						</div>
 						{enneagramData ? (
