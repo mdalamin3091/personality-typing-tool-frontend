@@ -15,8 +15,6 @@ const CastCharacterTable = ({
 	setRelationData,
 	enneagramNumbers,
 	setEnneagramNumbers,
-	enneagramName,
-	setEnneagramName
 }) => {
 	const { name, enneagramtype } = character || {};
 	const dispatch = useDispatch();

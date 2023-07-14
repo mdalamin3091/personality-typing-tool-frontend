@@ -21,7 +21,6 @@ const CastDetails = () => {
 	const [enneagramData, setEnneagramData] = useState([]);
 	const [enneagramNumbers, setEnneagramNumbers] = useState([]);
 	const [relationData, setRelationData] = useState(null);
-	const [enneagramName, setEnneagramName] = useState([]);
 
 	const [deleteCastWithCharacter, castWithCharacterResult] =
 		useDeleteCastWithCharactersMutation();
@@ -146,8 +145,6 @@ const CastDetails = () => {
 													setEnneagramData={setEnneagramData}
 													setEnneagramNumbers={setEnneagramNumbers}
 													enneagramNumbers={enneagramNumbers}
-													setEnneagramName={setEnneagramName}
-													enneagramName={enneagramName}
 												/>
 											))}
 									</div>
