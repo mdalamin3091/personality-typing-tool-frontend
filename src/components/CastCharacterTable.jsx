@@ -48,11 +48,9 @@ const CastCharacterTable = ({
 		} else {
 			setIsLoad(!isLoad);
 			setIsIcon(false);
-			setEnneagramData(null);
 		}
 
 	};
-
 	useEffect(() => {
 		if (isSuccess && data) {
 			toast.success(data.message);
