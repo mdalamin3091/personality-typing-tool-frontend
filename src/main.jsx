@@ -9,7 +9,7 @@ import App from "./App";
 import ErrorBoundary from "./components/ErrorBoundary";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-	<React.StrictMode>
+	// <React.StrictMode>
 		<ErrorBoundary>
 			<Provider store={store}>
 				<ThemeProvider>
@@ -24,5 +24,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 				</ThemeProvider>
 			</Provider>
 		</ErrorBoundary>
-	</React.StrictMode>
+	// </React.StrictMode>
 );

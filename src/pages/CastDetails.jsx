@@ -18,10 +18,11 @@ import { toast } from "react-hot-toast";
 const CastDetails = () => {
 	const { id } = useParams();
 	const { data, isLoading, isError, isSuccess } = useGetCastQuery(id);
-	const [enneagramData, setEnneagramData] = useState(null);
+	const [enneagramData, setEnneagramData] = useState([]);
+	const [enneagramNumbers, setEnneagramNumbers] = useState([]);
 	const [relationData, setRelationData] = useState(null);
-	const { title, core_motivation, left_wing, right_wing } =
-		enneagramData?.data || {};
+	const [enneagramName, setEnneagramName] = useState([]);
+
 	const [deleteCastWithCharacter, castWithCharacterResult] =
 		useDeleteCastWithCharactersMutation();
 	const [deleteCast, result] = useDeleteCastMutation();
@@ -143,44 +144,55 @@ const CastDetails = () => {
 													character={char}
 													enneagramData={enneagramData}
 													setEnneagramData={setEnneagramData}
+													setEnneagramNumbers={setEnneagramNumbers}
+													enneagramNumbers={enneagramNumbers}
+													setEnneagramName={setEnneagramName}
+													enneagramName={enneagramName}
 												/>
 											))}
 									</div>
 								</div>
 							</Card>
 						</div>
-						{enneagramData ? (
-							<Fragment>
-								<h2 className="mt-10 font-bold text-2xl">Enneagram Type Data</h2>
-								<div className="text-gray-700 mt-5">
-									<span className="font-bold">Title:</span> {title} <br />
-									<span className="font-bold">Core motivation:</span>{" "}
-									{core_motivation} <br />
-									<span className="font-bold">Left wing:</span> {left_wing} <br />
-									<span className="font-bold">Right wing:</span> {right_wing}{" "}
-									<br />
+						<div className="flex items-center gap-4 justify-center flex-col md:flex-row">
+							{enneagramData.length > 0 ? enneagramData.map(item => {
+								enneagramNumbers.push(item.enneagram_number)
+								return (
+									<div className="border-2 border-gray-200 p-5">
+										<h2 className="mt-10 font-bold text-2xl">Enneagram Type Data</h2>
+										<div className="text-gray-700 mt-5">
+											<span className="font-bold">Title:</span> {item.title} <br />
+											<span className="font-bold">Core motivation:</span>{" "}
+											{item.core_motivation} <br />
+											<span className="font-bold">Left wing:</span> {item.left_wing} <br />
+											<span className="font-bold">Right wing:</span> {item.right_wing}{" "}
+											<br />
+										</div>
+									</div>
+								)
+							}) : <p> Please selected any Enneagram Type</p>}
+						</div>
+
+						{relationData && enneagramNumbers.length > 2 ? (
+							<div className="flex items-center justify-center w-full md:w-[63%] mt-5 mx-auto">
+								<div className="border-2 border-gray-200 p-5">
+									<h2 className="mt-10 font-bold text-2xl">Relationship Data</h2>
+									<div className="text-gray-700 mt-5">
+										<span className="font-bold">Details:</span>{" "}
+										{relationData.details} <br />
+										<span className="font-bold">Enneagram Title:</span>{" "}
+										{enneagramData[0]?.title} <br />
+										<span className="font-bold">Enneagram Title:</span>{" "}
+										{enneagramData[1]?.title} <br />
+										<span className="font-bold">Type1:</span>{" "}
+										{relationData?.type1} <br />
+										<span className="font-bold">Type2:</span>{" "}
+										{relationData?.type2} <br />
+									</div>
 								</div>
-							</Fragment>
-						) : null}
-						{relationData ? (
-							<Fragment>
-								<h2 className="mt-10 font-bold text-2xl">Relationship Data</h2>
-								<div className="text-gray-700 mt-5">
-									<span className="font-bold">Details:</span>{" "}
-									{relationData.details} <br />
-									<span className="font-bold">Type1:</span>{" "}
-									{relationData?.type1} <br />
-									<span className="font-bold">Type2:</span>{" "}
-									{relationData?.type2} <br />
-								</div>
-							</Fragment>
-						) : relationData?.length === 0 ? (
-							<p> There is no relationship between two character types</p>
+							</div>
 						) : null}
 					</div>
-					{/* <div className="text-center mt-16">
-						<Button className="bg-black rounded-full">Print PDF</Button>
-					</div> */}
 				</div>
 			</div>
 		);

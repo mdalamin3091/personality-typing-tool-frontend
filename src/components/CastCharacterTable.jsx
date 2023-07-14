@@ -13,62 +13,59 @@ const CastCharacterTable = ({
 	setEnneagramData,
 	character,
 	setRelationData,
+	enneagramNumbers,
+	setEnneagramNumbers,
+	enneagramName,
+	setEnneagramName
 }) => {
 	const { name, enneagramtype } = character || {};
 	const dispatch = useDispatch();
-	const [isIcon, setIsIcon] = useState(false);
-	const [isLoad, setIsLoad] = useState(true);
-	const [isRelationData, setIsRelationData] = useState({});
-	const [isSkip, setSkip] = useState(true);
-
-	const { data, isSuccess } = useGetRelationshipQuery(
-		{
-			type1: isRelationData?.data?.enneagram_number,
-			type2: enneagramData?.data?.enneagram_number,
-		},
-		{ skip: isSkip }
-	);
+	const [isIcon, setIcon] = useState(false);
+	let uniqueArray = [...new Set(enneagramNumbers)];
 
 	const handleEnegramType = () => {
-		if (isLoad) {
-			dispatch(getEnneagramType.initiate(enneagramtype))
-				.unwrap()
-				.then((res) => {
-					setEnneagramData(res);
-					setIsIcon(true);
-					if (res.data) {
-						dispatch(getEnneagramType.initiate(enneagramtype))
-							.unwrap()
-							.then((res) => {
-								setIsRelationData(res);
-							});
-					}
-				});
-			setIsLoad(!isLoad);
-		} else {
-			setIsLoad(!isLoad);
-			setIsIcon(false);
-		}
-
+		dispatch(getEnneagramType.initiate(enneagramtype))
+			.unwrap()
+			.then((res) => {
+				const findData = enneagramData.find(
+					(item) => item.id === res?.data?.id
+				);
+				if (findData) {
+					const filteredData = enneagramData.filter(
+						(item) => item.id !== findData.id
+					);
+					setEnneagramData(filteredData);
+					const filterdNumber = uniqueArray.filter(
+						(item) => item != findData.enneagram_number
+					);
+					setEnneagramNumbers(filterdNumber);
+					setIcon(false);
+				} else if (enneagramData?.length > 1) {
+					toast.error("Please unselect any ennagram type");
+				} else {
+					setEnneagramData([...enneagramData, res?.data]);
+					setIcon(true);
+					setRelationData(null);
+				}
+			});
 	};
+	uniqueArray = [...new Set(enneagramNumbers)];
+
+	const { data, isSuccess, isError } = useGetRelationshipQuery(
+		{
+			type1: uniqueArray[0],
+			type2: uniqueArray[1],
+		},
+		{ skip: uniqueArray.length !== 2 }
+	);
+
 	useEffect(() => {
 		if (isSuccess && data) {
-			toast.success(data.message);
 			setRelationData(data?.data);
+		} else if(isError){
+			setRelationData(null)
 		}
-	}, [isSuccess]);
-
-	useEffect(() => {
-		if (
-			isRelationData?.data?.enneagram_number &&
-			enneagramData?.data?.enneagram_number
-		) {
-			setSkip(false);
-		}
-	}, [
-		isRelationData?.data?.enneagram_number,
-		enneagramData?.data?.enneagram_number,
-	]);
+	}, [isSuccess, data, isError]);
 
 	return (
 		<div
@@ -76,7 +73,11 @@ const CastCharacterTable = ({
 			onClick={handleEnegramType}
 		>
 			<div className="p-4">
-				<Typography variant="small" color="blue-gray" className="font-normal flex items-center gap-2">
+				<Typography
+					variant="small"
+					color="blue-gray"
+					className="font-normal flex items-center gap-2"
+				>
 					<Smile /> {name}
 				</Typography>
 			</div>
