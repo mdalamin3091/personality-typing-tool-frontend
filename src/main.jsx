@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
 		<ErrorBoundary>
 			<Provider store={store}>
-				<ThemeProvider>
+				<ThemeProvider> 
 					<Toaster
 						position="top-center"
 						reverseOrder={false}
